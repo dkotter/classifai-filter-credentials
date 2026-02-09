@@ -1,9 +1,8 @@
 <?php
 /**
  * Plugin Name:       Filter ClassifAI Credentials
- * Plugin URI:        https://github.com/10up/classifai
- * Update URI:        https://classifaiplugin.com
- * Description:       Filter ClassifAI credentials.
+ * Plugin URI:        https://github.com/dkotter/classifai-filter-credentials
+ * Description:       Examples of how to filter ClassifAI Provider credentials.
  * Version:           0.1.0
  * Requires at least: 6.8
  * Requires PHP:      7.4
@@ -13,7 +12,6 @@
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       classifai-filter-credentials
- * Domain Path:       /languages
  *
  * @package classifai-filter-credentials
  */
