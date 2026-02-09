@@ -89,6 +89,7 @@ Same as above but also checks the `$feature_id` parameter to only apply the cred
 |---|---|
 | `aws_polly` | `access_key_id`, `secret_access_key`, `aws_region` |
 | `azure_openai` | `api_key`, `endpoint_url`, `deployment` |
+| `azure_openai_embeddings` | `api_key`, `endpoint_url`, `deployment` |
 | `elevenlabs_speech_to_text` | `api_key` |
 | `elevenlabs_text_to_speech` | `api_key` |
 | `googleai_gemini_api` | `api_key` |
