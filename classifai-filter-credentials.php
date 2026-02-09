@@ -42,6 +42,7 @@ add_filter(
 				$credentials['aws_region']        = 'us-east-1';
 				break;
 			case 'azure_openai':
+			case 'azure_openai_embeddings':
 				$credentials['api_key']      = 'API_KEY';
 				$credentials['endpoint_url'] = 'ENDPOINT_URL';
 				$credentials['deployment']   = 'deployment-name';
@@ -139,6 +140,7 @@ add_filter(
 				}
 				break;
 			case 'azure_openai':
+			case 'azure_openai_embeddings':
 				$api_key_env_key = "{$provider_env_key}_API_KEY";
 				if ( defined( $api_key_env_key ) ) {
 					$credentials['api_key'] = constant( $api_key_env_key );
@@ -290,6 +292,7 @@ add_filter(
 				$credentials['aws_region']        = vip_get_env_var( "{$provider_env_key}_AWS_REGION", '' );
 				break;
 			case 'azure_openai':
+			case 'azure_openai_embeddings':
 				$credentials['api_key']      = vip_get_env_var( "{$provider_env_key}_API_KEY", '' );
 				$credentials['endpoint_url'] = vip_get_env_var( "{$provider_env_key}_ENDPOINT_URL", '' );
 				$credentials['deployment']   = vip_get_env_var( "{$provider_env_key}_DEPLOYMENT", '' );
