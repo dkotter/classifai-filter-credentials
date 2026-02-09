@@ -259,3 +259,93 @@ add_filter(
 	10,
 	2
 );
+
+/**
+ * Filter the ClassifAI Provider credentials.
+ *
+ * This overrides the credentials for all Providers,
+ * pulling in values from environment variables.
+ *
+ * This is built to work with WordPress VIP's
+ * environment variables only.
+ *
+ * @param array  $credentials The credentials for the Provider.
+ * @param string $provider_id The ID of the Provider.
+ * @return array The filtered credentials.
+ */
+add_filter(
+	'classifai_provider_credentials',
+	static function ( $credentials, $provider_id ) {
+		// Ensure we're on a WordPress VIP site.
+		if ( ! function_exists( 'vip_get_env_var' ) ) {
+			return $credentials;
+		}
+
+		// Set up our base Provider environment key.
+		$provider_env_key = strtoupper( str_replace( '-', '_', "CLASSIFAI_{$provider_id}" ) );
+
+		// Get the credentials for each Provider.
+		switch ( $provider_id ) {
+			case 'aws_polly':
+				$credentials['access_key_id']     = vip_get_env_var( "{$provider_env_key}_ACCESS_KEY_ID", '' );
+				$credentials['secret_access_key'] = vip_get_env_var( "{$provider_env_key}_SECRET_ACCESS_KEY", '' );
+				$credentials['aws_region']        = vip_get_env_var( "{$provider_env_key}_AWS_REGION", '' );
+				break;
+			case 'azure_openai':
+				$credentials['api_key']      = vip_get_env_var( "{$provider_env_key}_API_KEY", '' );
+				$credentials['endpoint_url'] = vip_get_env_var( "{$provider_env_key}_ENDPOINT_URL", '' );
+				$credentials['deployment']   = vip_get_env_var( "{$provider_env_key}_DEPLOYMENT", '' );
+				break;
+			case 'elevenlabs_speech_to_text':
+			case 'elevenlabs_text_to_speech':
+				$credentials['api_key'] = vip_get_env_var( "{$provider_env_key}_API_KEY", '' );
+				break;
+			case 'googleai_gemini_api':
+			case 'googleai_images':
+				$credentials['api_key'] = vip_get_env_var( "{$provider_env_key}_API_KEY", '' );
+				break;
+			case 'ibm_watson_nlu':
+				$credentials['apikey']       = vip_get_env_var( "{$provider_env_key}_APIKEY", '' );
+				$credentials['username']     = vip_get_env_var( "{$provider_env_key}_USERNAME", '' );
+				$credentials['password']     = vip_get_env_var( "{$provider_env_key}_PASSWORD", '' );
+				$credentials['endpoint_url'] = vip_get_env_var( "{$provider_env_key}_ENDPOINT_URL", '' );
+				break;
+			case 'ms_azure_text_to_speech':
+				$credentials['api_key']      = vip_get_env_var( "{$provider_env_key}_API_KEY", '' );
+				$credentials['endpoint_url'] = vip_get_env_var( "{$provider_env_key}_ENDPOINT_URL", '' );
+				break;
+			case 'ms_computer_vision':
+				$credentials['api_key']      = vip_get_env_var( "{$provider_env_key}_API_KEY", '' );
+				$credentials['endpoint_url'] = vip_get_env_var( "{$provider_env_key}_ENDPOINT_URL", '' );
+				break;
+			case 'ollama':
+			case 'ollama_embeddings':
+			case 'ollama_multimodal':
+				$credentials['endpoint_url'] = vip_get_env_var( "{$provider_env_key}_ENDPOINT_URL", '' );
+				break;
+			case 'openai_chatgpt':
+			case 'openai_embeddings':
+			case 'openai_moderation':
+			case 'openai_dalle':
+			case 'openai_whisper':
+			case 'openai_text_to_speech':
+				$credentials['api_key'] = vip_get_env_var( "{$provider_env_key}_API_KEY", '' );
+				break;
+			case 'stable_diffusion':
+				$credentials['endpoint_url'] = vip_get_env_var( "{$provider_env_key}_ENDPOINT_URL", '' );
+				break;
+			case 'togetherai_image':
+				$credentials['api_key'] = vip_get_env_var( "{$provider_env_key}_API_KEY", '' );
+				break;
+			case 'xai_grok':
+				$credentials['api_key'] = vip_get_env_var( "{$provider_env_key}_API_KEY", '' );
+				break;
+			default:
+				break;
+		}
+
+		return $credentials;
+	},
+	10,
+	2
+);
