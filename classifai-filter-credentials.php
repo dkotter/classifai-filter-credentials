@@ -349,3 +349,27 @@ add_filter(
 	10,
 	2
 );
+
+/**
+ * Filter the ClassifAI Provider credentials for OpenAI ChatGPT.
+ *
+ * This is built to work with WordPress VIP's
+ * environment variables and then fallback to global constants.
+ *
+ * @param array $credentials The credentials for the Provider.
+ * @return array The filtered credentials.
+ */
+add_filter(
+	'classifai_provider_credentials_openai_chatgpt',
+	static function ( $credentials ) {
+		if ( function_exists( 'vip_get_env_var' ) ) {
+			$credentials['api_key'] = vip_get_env_var( 'CLASSIFAI_OPENAI_CHATGPT_API_KEY', '' );
+		} else {
+			$credentials['api_key'] = defined( 'CLASSIFAI_OPENAI_CHATGPT_API_KEY' ) ? constant( 'CLASSIFAI_OPENAI_CHATGPT_API_KEY' ) : '';
+		}
+
+		return $credentials;
+	},
+	10,
+	1
+);
